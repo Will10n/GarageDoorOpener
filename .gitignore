@@ -1,0 +1,9 @@
+#ignores all python related stuff
+pythonCode/keys
+pythonCode/logfile.csv
+pythonCode/__pycache__
+
+#ignores all my api keys
+app/build
+app/build.gradle.kts
+app/proguard-rules.pro

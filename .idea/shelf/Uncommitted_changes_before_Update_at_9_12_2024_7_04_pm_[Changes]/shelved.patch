@@ -1,0 +1,11 @@
+Index: pythonCode/.gitignore
+===================================================================
+diff --git a/pythonCode/.gitignore b/pythonCode/.gitignore
+deleted file mode 100644
+--- a/pythonCode/.gitignore	(revision ed9615137a8752b9da898a5a2d310f2805db4268)
++++ /dev/null	(revision ed9615137a8752b9da898a5a2d310f2805db4268)
+@@ -1,3 +0,0 @@
+-config.csv.txt
+-.gitignore
+-keys/
+\ No newline at end of file

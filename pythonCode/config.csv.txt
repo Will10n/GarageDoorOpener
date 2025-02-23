@@ -1,0 +1,10 @@
+key,value
+client_id,randomClient
+endpoint,a1z8519zoelk68-ats.iot.us-east-1.amazonaws.com
+root_ca,keys/root-ca.pem
+private_key,keys/private.pem.key
+certificate,keys/awscertificate.pem.crt
+topic,/base/test
+
+
+
