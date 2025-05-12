@@ -25,6 +25,8 @@ class serverClient:
                     self.config[row['key']] = row['value']
                     
           self.client = None
+          
+          
           self.running = False
           self.gpio = signalControl.Control()
           self.gpio.state = State.DWELL
@@ -71,6 +73,7 @@ class serverClient:
                self.gpio.state = State.ERROR
                self.client.disconnect
                self.running = False
+               print("Transition error")
                
           elif data["transition type"] == 5:
                self.enable()
