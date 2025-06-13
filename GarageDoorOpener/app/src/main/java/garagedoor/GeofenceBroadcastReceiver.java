@@ -1,4 +1,4 @@
-package com.example.garagedoor;
+package garagedoor;
 
 import android.app.NotificationChannel;
 import androidx.core.app.NotificationCompat;
@@ -6,18 +6,12 @@ import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Network;
 import android.util.Log;
 
-import com.example.garagedoor.NetworkUtils;
-import com.example.garagedoor.TransitionState;
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofenceStatusCodes;
 import com.google.android.gms.location.GeofencingEvent;
 
-import org.json.JSONException;
-
-import java.io.IOException;
 import java.util.Objects;
 
 public class GeofenceBroadcastReceiver extends BroadcastReceiver {

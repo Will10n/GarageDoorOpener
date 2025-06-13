@@ -1,4 +1,4 @@
-package com.example.garagedoor;
+package garagedoor;
 
 import android.annotation.SuppressLint;
 import android.app.PendingIntent;

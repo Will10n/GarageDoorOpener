@@ -18,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GarageDoor"
         >
-        <receiver android:name="GeofenceBroadcastReceiver" android:exported="true"
+        <receiver android:name="garagedoor.GeofenceBroadcastReceiver" android:exported="true"
             android:permission="android.permission.ACCESS_BACKGROUND_LOCATION" />
         <activity
             android:name=".MainActivity"

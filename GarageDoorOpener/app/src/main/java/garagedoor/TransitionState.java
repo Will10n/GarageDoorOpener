@@ -1,4 +1,4 @@
-package com.example.garagedoor;
+package garagedoor;
 
 public enum TransitionState {
     ENTER(0),

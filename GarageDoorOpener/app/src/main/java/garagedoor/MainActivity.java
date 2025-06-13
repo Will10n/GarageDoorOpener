@@ -1,4 +1,4 @@
-package com.example.garagedoor;
+package garagedoor;
 
 import android.Manifest;
 import android.os.Bundle;
@@ -13,6 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.example.garagedoor.BuildConfig;
+import com.example.garagedoor.R;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -42,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         activateButton.setOnClickListener(v -> {
             Log.d("BUTTONS", "User pressed activate");
             Toast.makeText(MainActivity.this, "button pressed", Toast.LENGTH_SHORT).show();
-            com.example.garagedoor.NetworkUtils.sendSignal(LATITUDE, LONGITUDE, TransitionState.BUTTON);
+            NetworkUtils.sendSignal(LATITUDE, LONGITUDE, TransitionState.BUTTON);
         });
 
         // Request permissions to set up geofence

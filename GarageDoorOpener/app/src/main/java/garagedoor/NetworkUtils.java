@@ -1,9 +1,9 @@
-package com.example.garagedoor;
+package garagedoor;
 
-import android.net.Network;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
