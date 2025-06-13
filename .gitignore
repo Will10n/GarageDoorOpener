@@ -17,6 +17,6 @@ GarageDoorOpener/gradle
 GarageDoorOpener/settings.gradle.kts
 GarageDoorOpener/build.gradle.kts
 GarageDoorOpener/gradle.properties
-GarageDoorOpener/gradlew
+GarageDoorOpener/gradlew.bat
 GarageDoorOpener/gradle.bat
 GarageDoorOpener/local_properties
