@@ -73,7 +73,7 @@ public class NetworkUtils {
     }
 
     private static @NonNull HttpURLConnection getHttpURLConnection() throws IOException {
-        URL url = new URL(com.example.garagedoor.MainActivity.httpURL);
+        URL url = new URL(MainActivity.httpURL);
 
         // start the connection
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();

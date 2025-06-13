@@ -21,7 +21,7 @@
         <receiver android:name="garagedoor.GeofenceBroadcastReceiver" android:exported="true"
             android:permission="android.permission.ACCESS_BACKGROUND_LOCATION" />
         <activity
-            android:name=".MainActivity"
+            android:name="garagedoor.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
