@@ -1,26 +1,22 @@
-
-
+# ignore config files
 pythonCode/config.csv.txt
-
-# ignore build files
-GarageDoorOpener/build.*
 
 *.iml
 GarageDoorOpener/.gradle
+GarageDoorOpener/.idea
 GarageDoorOpener/local.properties
 
-GarageDoorOpener/app/build.*
+# ignore build files
+GarageDoorOpener/app/build/*
 
-# ignoring ideas
-GarageDoorOpener/.idea/caches
-GarageDoorOpener/.idea/libraries
-GarageDoorOpener/.idea/modules.xml
-GarageDoorOpener/.idea/workspace.xml
-GarageDoorOpener/.idea/navEditor.xml
+GarageDoorOpener/app/build.gradle.kts
+GarageDoorOpener/app/proguard-rules.pro
+GarageDoorOpener/gradle
 
-GarageDoorOpener/.idea/assetWizardSettings.xml
-GarageDoorOpener/.DS_Store
-GarageDoorOpener/captures
-GarageDoorOpener/.externalNativeBuild
-GarageDoorOpener/.cxx
-GarageDoorOpener/local.properties
+# some settings files for app.
+GarageDoorOpener/settings.gradle.kts
+GarageDoorOpener/build.gradle.kts
+GarageDoorOpener/gradle.properties
+GarageDoorOpener/gradlew
+GarageDoorOpener/gradle.bat
+GarageDoorOpener/local_properties
