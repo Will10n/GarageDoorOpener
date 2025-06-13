@@ -9,6 +9,8 @@ GarageDoorOpener/build.*
 GarageDoorOpener/.gradle
 GarageDoorOpener/local.properties
 
+GarageDoorOpener/app/build.*
+
 # ignoring ideas
 GarageDoorOpener/.idea/caches
 GarageDoorOpener/.idea/libraries
