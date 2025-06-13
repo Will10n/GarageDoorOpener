@@ -1,8 +1,24 @@
-# testing stuff
-GeofenceApp/*
 
-# app folder
-GarageDoorOpener/*
 
-# idea stuff
-.idea
+
+
+# ignore build files
+GarageDoorOpener/build.*
+
+*.iml
+GarageDoorOpener/.gradle
+GarageDoorOpener/local.properties
+
+# ignoring ideas
+GarageDoorOpener/.idea/caches
+GarageDoorOpener/.idea/libraries
+GarageDoorOpener/.idea/modules.xml
+GarageDoorOpener/.idea/workspace.xml
+GarageDoorOpener/.idea/navEditor.xml
+
+GarageDoorOpener/.idea/assetWizardSettings.xml
+GarageDoorOpener/.DS_Store
+GarageDoorOpener/captures
+GarageDoorOpener/.externalNativeBuild
+GarageDoorOpener/.cxx
+GarageDoorOpener/local.properties

@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">GarageDoor</string>
+    <string name="activate">Activate</string>
+    <string name="garage_opener">Garage Opener</string>
+</resources>
