@@ -8,7 +8,7 @@ import json
 from datetime import datetime
 
 
-class State(Enum):
+class TransitionState(Enum):
      ENTER = 0
      EXIT = 1
      DWELL = 2
@@ -29,7 +29,7 @@ class serverClient:
           
           self.running = False
           self.gpio = signalControl.Control()
-          self.gpio.state = State.DWELL
+          self.gpio.TransitionState = TransitionState.DWELL
           self.pending = False
 
      def MQTTConnect(self):
@@ -58,26 +58,26 @@ class serverClient:
                time.sleep(20) # 15 seconds to prevent garage from doing sending consecutive data
                self.pending = False
           
-          if data["transition type"] == State.ENTER:
+          if data["transition type"] == TransitionState.ENTER:
                self.gpio.enable()
-               self.gpio.state = State.ENTER
+               self.gpio.TransitionState = TransitionState.ENTER
                
-          elif data["transition type"] == State.EXIT:
+          elif data["transition type"] == TransitionState.EXIT:
                self.gpio.enable()
-               self.gpio.state = State.EXIT
+               self.gpio.TransitionState = TransitionState.EXIT
                
-          elif data["transition type"] == State.DWELL:
-               self.gpio.state = State.DWELL
+          elif data["transition type"] == TransitionState.DWELL:
+               self.gpio.TransitionState = TransitionState.DWELL
                
-          elif data["transition type"] == State.ERROR:
-               self.gpio.state = State.ERROR
+          elif data["transition type"] == TransitionState.ERROR:
+               self.gpio.TransitionState = TransitionState.ERROR
                self.client.disconnect
                self.running = False
                print("Transition error")
                
-          elif data["transition type"] == State.BUTTON:
+          elif data["transition type"] == TransitionState.BUTTON:
                self.enable()
-               self.gpio.state = State.TEST
+               self.gpio.TransitionState = TransitionState.BUTTON
 
           else:
                print(f"ERROR invalid transition type {data['transition type']}")
@@ -87,7 +87,7 @@ class serverClient:
           # Log the event to a CSV file
           with open("logfile.csv", mode="a", newline="") as file:
              writer = csv.writer(file)
-             writer.writerow([datetime.now().strftime("%Y-%m-%d %H:%M:%S"), self.gpio.state.name, data["transition type"]])
+             writer.writerow([datetime.now().strftime("%Y-%m-%d %H:%M:%S"), self.gpio.TransitionState.name, data["transition type"]])
 
      
 def main():
