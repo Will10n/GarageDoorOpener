@@ -22,3 +22,6 @@ GarageDoorOpener/gradlew.bat
 GarageDoorOpener/local_properties
 
 GarageDoorOpener/pythonCode/config.csv
+GarageDoorOpener/pythonCode/keys/
+GarageDoorOpener/pythonCode/logfile.csv
+GarageDoor/pythonCode/__pycache__/
