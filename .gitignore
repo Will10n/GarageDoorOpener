@@ -20,3 +20,5 @@ GarageDoorOpener/gradle.properties
 GarageDoorOpener/gradlew.bat
 
 GarageDoorOpener/local_properties
+
+GarageDoorOpener/pythonCode/config.csv

@@ -19,18 +19,29 @@ class serverClient:
      def __init__(self):
           self.config = {}
           
-          with open("config.csv.txt", mode='r') as file:
+          with open("config.csv", mode='r') as file:
                reader = csv.DictReader(file)
                for row in reader:
                     self.config[row['key']] = row['value']
                     
           self.client = None
-          
+     
           
           self.running = False
           self.gpio = signalControl.Control()
-          self.gpio.TransitionState = TransitionState.DWELL
+          self.gpio.TransitionState = TransitionState.EXIT
           self.pending = False
+          
+          self.allowed_transitions = { # defines all allowable states
+                        TransitionState.EXIT: [TransitionState.ENTER],
+                        TransitionState.ENTER: [TransitionState.DWELL],
+                        TransitionState.DWELL: [TransitionState.EXIT, TransitionState.BUTTON],
+                        TransitionState.BUTTON: [TransitionState.EXIT, TransitionState.BUTTON],
+                        TransitionState.ERROR: [],
+                    }
+                    
+          self.last_transition_time = 0
+          self.transition_cooldown = 20
 
      def MQTTConnect(self):
 
@@ -51,43 +62,65 @@ class serverClient:
           print("Subscribed to topic")
      
      def callback(self, client, userdata, message):
-          data = json.loads(message.payload.decode('utf-8'))
-          print(data)
           
-          if self.pending:
-               time.sleep(20) # 15 seconds to prevent garage from doing sending consecutive data
-               self.pending = False
-          
-          if data["transition type"] == TransitionState.ENTER:
-               self.gpio.enable()
-               self.gpio.TransitionState = TransitionState.ENTER
-               
-          elif data["transition type"] == TransitionState.EXIT:
-               self.gpio.enable()
-               self.gpio.TransitionState = TransitionState.EXIT
-               
-          elif data["transition type"] == TransitionState.DWELL:
-               self.gpio.TransitionState = TransitionState.DWELL
-               
-          elif data["transition type"] == TransitionState.ERROR:
-               self.gpio.TransitionState = TransitionState.ERROR
-               self.client.disconnect
-               self.running = False
-               print("Transition error")
-               
-          elif data["transition type"] == TransitionState.BUTTON:
-               self.enable()
-               self.gpio.TransitionState = TransitionState.BUTTON
+          try:
+               data = json.loads(message.payload.decode('utf-8'))
+               print(data)
 
-          else:
-               print(f"ERROR invalid transition type {data['transition type']}")
                
-          self.pending = True
+               requested_state = TransitionState(data["transition type"])  # Ensure it's a valid enum
+               current_state = self.gpio.TransitionState # get current state
+
+               # Cooldown check
+               current_time = time.time()
+               if current_time - self.last_transition_time < self.transition_cooldown:
+                    print("Transition blocked: cooldown period active.")
+                    return
+                     
+               if requested_state == TransitionState.ERROR:
+                    self.errorShutdown()
+                    return
+               
+                # Manual override (BUTTON)
+               if requested_state == TransitionState.BUTTON:
+                    self.gpio.enable()
+                    self.gpio.TransitionState = TransitionState.BUTTON
+                    print("Manual BUTTON press: transition applied.")
+                    
+                # Valid transition check
+               elif requested_state in self.allowed_transitions.get(current_state, []):
+                    self.gpio.enable()
+                    self.gpio.TransitionState = requested_state
+                    print(f"Transitioned from {current_state.name} to {requested_state.name}.")
+               else:
+                    print(f"Invalid transition from {current_state.name} to {requested_state.name}.")
+                    self.errorShutdown()
+                    return
+
+               # set latest transition time
+               self.last_transition_time = current_time
+
+               
+               # Log the event to a CSV file
+               with open("logfile.csv", mode="a", newline="") as file:
+                  writer = csv.writer(file)
+                  writer.writerow([datetime.now().strftime("%Y-%m-%d %H:%M:%S"), self.gpio.TransitionState.name, data["transition type"]])
+
+          except KeyError:
+           print(f"Invalid transition type received: {data.get('transition type')}")
+           self.errorShutdown()
+
+          except Exception as e:
+           print(f"Exception occurred in callback: {e}")
+           self.errorShutdown()
+                  
+     def errorShutdown(self):
+          self.gpio.TransitionState = TransitionState.ERROR
+          self.client.disconnect
+          self.running = False
+          print("Transition error")
           
-          # Log the event to a CSV file
-          with open("logfile.csv", mode="a", newline="") as file:
-             writer = csv.writer(file)
-             writer.writerow([datetime.now().strftime("%Y-%m-%d %H:%M:%S"), self.gpio.TransitionState.name, data["transition type"]])
+          return
 
      
 def main():
