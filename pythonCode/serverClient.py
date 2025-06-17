@@ -9,11 +9,11 @@ from datetime import datetime
 
 
 class State(Enum):
-     ENTER = 1
-     EXIT = 2
-     DWELL = 3
+     ENTER = 0
+     EXIT = 1
+     DWELL = 2
+     BUTTON = 3
      ERROR = 4
-     TEST = 5
 
 class serverClient:
      def __init__(self):
@@ -58,31 +58,30 @@ class serverClient:
                time.sleep(20) # 15 seconds to prevent garage from doing sending consecutive data
                self.pending = False
           
-          if data["transition type"] == 1:
+          if data["transition type"] == State.ENTER:
                self.gpio.enable()
                self.gpio.state = State.ENTER
                
-          elif data["transition type"] == 2:
+          elif data["transition type"] == State.EXIT:
                self.gpio.enable()
                self.gpio.state = State.EXIT
                
-          elif data["transition type"] == 3:
+          elif data["transition type"] == State.DWELL:
                self.gpio.state = State.DWELL
                
-          elif data["transition type"] == 4:
+          elif data["transition type"] == State.ERROR:
                self.gpio.state = State.ERROR
                self.client.disconnect
                self.running = False
                print("Transition error")
                
-          elif data["transition type"] == 5:
+          elif data["transition type"] == State.BUTTON:
                self.enable()
                self.gpio.state = State.TEST
 
           else:
                print(f"ERROR invalid transition type {data['transition type']}")
                
-                       
           self.pending = True
           
           # Log the event to a CSV file
