@@ -18,8 +18,9 @@ class Control():
           
      def enable(self):
           gpio.output(self.operation, gpio.LOW)
-          time.sleep(0.1) # setup to low for a sec
+          time.sleep(0.25) # setup to low for a sec
           gpio.output(self.operation, gpio.HIGH)
+          
 
 
      
